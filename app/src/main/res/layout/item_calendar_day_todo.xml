@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/calendar_todo_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="1dp"
+    android:background="@drawable/shape_rounded_corners"
+    android:ellipsize="none"
+    android:padding="1dp"
+    android:singleLine="true"
+    android:textSize="10sp"
+    android:backgroundTint="@color/todo_green"
+    tools:text="建国記念の日"
+    tools:ignore="SmallSp" />
