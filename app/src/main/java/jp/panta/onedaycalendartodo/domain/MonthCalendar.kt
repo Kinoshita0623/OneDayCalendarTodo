@@ -1,7 +1,12 @@
 package jp.panta.onedaycalendartodo.domain
 
 import java.util.*
+import kotlin.collections.LinkedHashMap
 
+/**
+ * Repositoryから最終的に生成される集約のようなものであって
+ * DB上には存在しないクラス
+ */
 class MonthCalendar(
     timeList: List<Time>,
     val year: Int,
@@ -15,7 +20,11 @@ class MonthCalendar(
 
     private val counterCalendar = fillSpacedStartCalendar()
 
-
+    val times: LinkedHashMap<Long, Time> by lazy{
+        LinkedHashMap(evaluteTimes().map{
+            Pair(it.id, it)
+        }.toMap())
+    }
 
     fun evaluteTimes(): List<Time>{
 
@@ -64,5 +73,15 @@ class MonthCalendar(
         return fillSpacedStartCalendar().apply{
             add(Calendar.DATE, 7 * heightSpace)
         }
+    }
+
+    fun filterNotTodoEmpty(): List<Time>{
+        return times.filter{
+            it.value.todo.isNotEmpty()
+        }.values.toList()
+    }
+
+    fun getTime(month: Int, date: Int): Time?{
+        return times[Time.createId(year.toShort(), month.toByte(), date.toByte())]
     }
 }

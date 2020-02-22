@@ -35,7 +35,7 @@ class Time(
     }
 
     @Relation(entityColumn = "timeId", parentColumn = "id")
-    var todo: List<Todo> = ArrayList()
+    var todo = ArrayList<Todo>()
 
     private fun toCalendar() : Calendar{
         return Calendar.getInstance().also{
