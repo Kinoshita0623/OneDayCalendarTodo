@@ -8,7 +8,6 @@ class MonthCalendarTest{
 
     @Test
     fun defaultFillSpacedCalendar(){
-        val today = Calendar.getInstance()
         val monthCalendar = MonthCalendar(year = 2020, month = 2, timeList = emptyList())
         val firstDate = monthCalendar.fillSpacedStartCalendar()
         assert(firstDate.get(Calendar.DATE) == 26)
@@ -26,8 +25,8 @@ class MonthCalendarTest{
 
     @Test
     fun startMondayDayOfWeekFillSpacedCalendar(){
-        val monthCalendar = MonthCalendar(year = 2020, month = 2, timeList = emptyList(), startDayOfWeek = DayOfWeek.MONDAY)
+        val monthCalendar = MonthCalendar(year = 2020, month = 3, timeList = emptyList(), startDayOfWeek = DayOfWeek.MONDAY)
         val firstDate = monthCalendar.fillSpacedStartCalendar()
-        assert(firstDate.get(Calendar.DATE) == 27)
+        assert(firstDate.get(Calendar.DATE) == 24)
     }
 }

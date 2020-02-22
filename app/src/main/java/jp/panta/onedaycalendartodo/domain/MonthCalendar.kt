@@ -30,24 +30,26 @@ class MonthCalendar(
         oneDay.set(Calendar.MONTH, month - 1)
         oneDay.set(Calendar.DATE, 1)
 
-        val oneDayOfWeek = DayOfWeek.values()[oneDay.get(Calendar.DAY_OF_WEEK) - 1]
-
-
-        val dayOfWeekList = DayOfWeek.values().toList()
-        val startIndex = dayOfWeekList.indexOf(startDayOfWeek)
-        println("startIndex:$startIndex")
-        val diffDayOfWeek = dayOfWeekList.subList(0, startIndex)
-        val adjustmentDayOfWeekList = ArrayList(dayOfWeekList).apply{
-            removeAll(diffDayOfWeek)
-            addAll(diffDayOfWeek)
-        } as List<DayOfWeek>
-
-        println("adjustWeek:$adjustmentDayOfWeekList")
-
-        val spaceDateCount = adjustmentDayOfWeekList.indexOf(oneDayOfWeek)
-
-        return oneDay.apply{
-            add(Calendar.DATE, - spaceDateCount)
+        val oneDayOfWeekValue = oneDay.get(Calendar.DAY_OF_WEEK)
+        if(oneDayOfWeekValue == startDayOfWeek.calendarValue){
+            return oneDay
         }
+
+        if(oneDayOfWeekValue < startDayOfWeek.calendarValue){
+            val n = 7 - (startDayOfWeek.calendarValue - 1)
+            val diff = oneDayOfWeekValue - 1 + n
+            oneDay.add(Calendar.DATE, - diff)
+            return oneDay
+        }
+
+        if(oneDayOfWeekValue > startDayOfWeek.calendarValue){
+            val diff = oneDayOfWeekValue - startDayOfWeek.calendarValue
+            oneDay.add(Calendar.DATE, - diff)
+
+            return oneDay
+        }
+
+        return oneDay
+
     }
 }
