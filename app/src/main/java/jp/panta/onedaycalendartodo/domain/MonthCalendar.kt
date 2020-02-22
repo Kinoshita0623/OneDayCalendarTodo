@@ -9,17 +9,24 @@ class MonthCalendar(
     val startDayOfWeek: DayOfWeek = DayOfWeek.SUNDAY,
     val heightSpace: Int = 6
 ) {
-    fun getEmptyTimeList(): List<Time>{
+    val idTimeMap = timeList.map{
+        Pair(it.id, it)
+    }.toMap()
 
-        val counterCalendar = fillSpacedStartCalendar()
+    private val counterCalendar = fillSpacedStartCalendar()
+
+
+
+    fun evaluteTimes(): List<Time>{
 
         return (0.until(heightSpace * 7)).map{
             counterCalendar.add(Calendar.DATE, 1)
             val year = counterCalendar.get(Calendar.YEAR)
             val month = counterCalendar.get(Calendar.MONTH)
             val date = counterCalendar.get(Calendar.DATE)
+            val tmpId = Time.createId(year.toShort(), month.toByte(), date.toByte())
+            idTimeMap[tmpId]?: Time(year = year.toShort(), month = (month + 1).toByte(), date = date.toByte())
 
-            Time(year = year.toShort(), month = (month + 1).toByte(), date = date.toByte())
         }
 
     }
@@ -51,5 +58,11 @@ class MonthCalendar(
 
         return oneDay
 
+    }
+
+    fun fillSpacedEndCalendar(): Calendar{
+        return fillSpacedStartCalendar().apply{
+            add(Calendar.DATE, 7 * heightSpace)
+        }
     }
 }

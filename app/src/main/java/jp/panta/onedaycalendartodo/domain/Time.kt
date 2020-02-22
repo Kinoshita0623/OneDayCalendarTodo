@@ -14,11 +14,13 @@ class Time(
     val date: Byte
 ){
 
-    companion object fun createId(year: Short, month: Byte, date: Byte): Long{
-        val yearLong = year.toLong()
-        val dateLong = date.toLong()
-        val monthLong = month.toLong()
-        return dateLong or monthLong.shl(5) or yearLong.shl(9)
+    companion object{
+        fun createId(year: Short, month: Byte, date: Byte): Long{
+            val yearLong = year.toLong()
+            val dateLong = date.toLong()
+            val monthLong = month.toLong()
+            return dateLong or monthLong.shl(5) or yearLong.shl(9)
+        }
     }
 
     @PrimaryKey(autoGenerate = false)
